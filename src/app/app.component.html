@@ -1,0 +1,42 @@
+<h1>
+  {{title}}
+</h1>
+
+<form action="">
+  <h2>Questions</h2>
+  <ol>
+    <li *ngFor="let item of items; let i = index" [attr.data-index]="i">{{item.question}}<br>
+      <input type="radio" [(ngModel)]="item.answer" name="answer_{{i}}" value="/">agree
+      <input type="radio" [(ngModel)]="item.answer" name="answer_{{i}}" value="-">neutral
+      <input type="radio" [(ngModel)]="item.answer" name="answer_{{i}}" value="x">disagree
+      <input type="radio" [(ngModel)]="item.answer" name="answer_{{i}}" value=" ">skip
+    </li>
+  </ol>
+
+
+
+  <h2>Matches</h2>
+  <ol>
+    <li *ngFor="let match of getMatches(items)">
+      {{match.name}}: {{match.percentage}} %
+    </li>
+  </ol>
+
+  <h2>Positions</h2>
+  <table>
+    <tr>
+      <th>Nr.</th>
+      <th style="width:3em">User</th>
+      <th style="width:3em" *ngFor="let party of parties;">{{party.toUpperCase()| slice:0:3}}</th>
+    </tr>
+    <tr *ngFor="let item of items;">
+      <td>{{item.id}}</td>
+      <td>{{item.answer}}</td>
+      <td *ngFor="let party of parties;">{{item[party]}}</td>
+    </tr>
+  </table>
+  (Sources: <a href="assets/positions_2019.pdf" target="_blank">Positions PDF</a>,
+  <a href="assets/positions_2019.csv" target="_blank">Positions CSV</a>,
+  <a href="assets/positions_2019.json" target="_blank">Positions JSON</a>,
+  <a href="assets/calc-model.pdf" target="_blank">Calculation model</a>)
+</form>
